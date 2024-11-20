@@ -1,0 +1,7 @@
+# ninja log v5
+4	1440	1732120050047269290	CMakeFiles/sorting_algorithms.dir/tests/structures_tests.cpp.o	a1759569a9dfde0f
+5	3836	1732120052439285195	CMakeFiles/sorting_algorithms.dir/tests/test_sorting.cpp.o	902e4743e558ffd5
+4	7426	1732120056025309118	CMakeFiles/sorting_algorithms.dir/structs/main.cpp.o	77469e9af30cf613
+7426	8116	1732120056722313780	sorting_algorithms	bb597854b815acc7
+9	1180	1732120463385514083	CMakeFiles/sorting_algorithms.dir/structs/main.cpp.o	77469e9af30cf613
+1181	1815	1732120464019519647	sorting_algorithms	bb597854b815acc7
