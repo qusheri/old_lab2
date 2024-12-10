@@ -105,7 +105,7 @@ public:
 };
 
 template<typename T>
-class ShrdPtr {
+class  ShrdPtr {
 private:
     T* ptr;
     size_t *referenceCount;

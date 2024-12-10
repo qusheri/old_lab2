@@ -72,6 +72,7 @@ std::string runLinkedListTests() {
         }
     }
 
+    result << "All LinkedList tests passed\n";
     return result.str();
 }
 
@@ -119,6 +120,7 @@ std::string runDynamicArrayTests() {
         }
     }
 
+    result << "All DynamicArray tests passed\n";
     return result.str();
 }
 
@@ -185,5 +187,6 @@ std::string runArraySequenceTests() {
         }
     }
 
+    result << "All Arraysequence tests passed\n";
     return result.str();
 }

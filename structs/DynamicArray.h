@@ -1,6 +1,9 @@
 #pragma once
 #include "smart_ptrs.h"
 #include "stdexcept"
+
+#include "iostream"
+
 template<typename T>
 class DynamicArray {
 private:
@@ -10,7 +13,11 @@ private:
 public:
     DynamicArray() : size_(0), val(new T[size_]) {}
 
-    DynamicArray(size_t count, T* items) : size_(count), val(items) {}
+    DynamicArray(size_t count, T* items) : size_(count), val(new T[count]) {
+        for (size_t i = 0; i < count; ++i) {
+            val[i] = items[i];
+        }
+    }
 
     DynamicArray(size_t count) : size_(count), val(new T[count]) {}
 
@@ -25,7 +32,6 @@ public:
         if (this == &other) {
             return *this;
         }
-        delete[] val;
         size_ = other.size_;
         val = ShrdPtr<T>(new T[size_]);
         for (size_t i = 0; i < size_; ++i) {
@@ -73,6 +79,7 @@ public:
 
     const T &operator[](const size_t i) const {
         if(size_ <= i){
+            std::cerr << std::endl << "2: " << 5252 << std::endl;
             throw std::out_of_range("Index out of range or array is empty");
         }
         return val[i];
@@ -80,6 +87,7 @@ public:
 
     T &operator[](const size_t i) {
         if(size_ <= i){
+            std::cerr << std::endl << "3: " << 5252 << std::endl;
             throw std::out_of_range("Index out of range or array is empty");
         }
         return val[i];

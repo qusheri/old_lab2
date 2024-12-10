@@ -1,20 +1,20 @@
 [
 {
   "directory": "/home/kamilg/vsc_cpp/sorting/build",
-  "command": "/usr/bin/clang++-18 -DQT_CHARTS_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -isystem /usr/include/x86_64-linux-gnu/qt6/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt6 -isystem /usr/include/x86_64-linux-gnu/qt6/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -isystem /usr/include/x86_64-linux-gnu/qt6/QtGui -isystem /usr/include/x86_64-linux-gnu/qt6/QtCharts -isystem /usr/include/x86_64-linux-gnu/qt6/QtOpenGL -isystem /usr/include/x86_64-linux-gnu/qt6/QtOpenGLWidgets -g -std=gnu++23 -fPIC -o CMakeFiles/sorting_algorithms.dir/structs/main.cpp.o -c /home/kamilg/vsc_cpp/sorting/structs/main.cpp",
-  "file": "/home/kamilg/vsc_cpp/sorting/structs/main.cpp",
-  "output": "CMakeFiles/sorting_algorithms.dir/structs/main.cpp.o"
-},
-{
-  "directory": "/home/kamilg/vsc_cpp/sorting/build",
-  "command": "/usr/bin/clang++-18 -DQT_CHARTS_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -isystem /usr/include/x86_64-linux-gnu/qt6/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt6 -isystem /usr/include/x86_64-linux-gnu/qt6/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -isystem /usr/include/x86_64-linux-gnu/qt6/QtGui -isystem /usr/include/x86_64-linux-gnu/qt6/QtCharts -isystem /usr/include/x86_64-linux-gnu/qt6/QtOpenGL -isystem /usr/include/x86_64-linux-gnu/qt6/QtOpenGLWidgets -g -std=gnu++23 -fPIC -o CMakeFiles/sorting_algorithms.dir/tests/structures_tests.cpp.o -c /home/kamilg/vsc_cpp/sorting/tests/structures_tests.cpp",
+  "command": "/usr/bin/clang++-18 -g -std=gnu++23 -o CMakeFiles/sorting_algorithms.dir/tests/structures_tests.cpp.o -c /home/kamilg/vsc_cpp/sorting/tests/structures_tests.cpp",
   "file": "/home/kamilg/vsc_cpp/sorting/tests/structures_tests.cpp",
   "output": "CMakeFiles/sorting_algorithms.dir/tests/structures_tests.cpp.o"
 },
 {
   "directory": "/home/kamilg/vsc_cpp/sorting/build",
-  "command": "/usr/bin/clang++-18 -DQT_CHARTS_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -isystem /usr/include/x86_64-linux-gnu/qt6/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt6 -isystem /usr/include/x86_64-linux-gnu/qt6/QtCore -isystem /usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -isystem /usr/include/x86_64-linux-gnu/qt6/QtGui -isystem /usr/include/x86_64-linux-gnu/qt6/QtCharts -isystem /usr/include/x86_64-linux-gnu/qt6/QtOpenGL -isystem /usr/include/x86_64-linux-gnu/qt6/QtOpenGLWidgets -g -std=gnu++23 -fPIC -o CMakeFiles/sorting_algorithms.dir/tests/test_sorting.cpp.o -c /home/kamilg/vsc_cpp/sorting/tests/test_sorting.cpp",
+  "command": "/usr/bin/clang++-18 -g -std=gnu++23 -o CMakeFiles/sorting_algorithms.dir/tests/test_sorting.cpp.o -c /home/kamilg/vsc_cpp/sorting/tests/test_sorting.cpp",
   "file": "/home/kamilg/vsc_cpp/sorting/tests/test_sorting.cpp",
   "output": "CMakeFiles/sorting_algorithms.dir/tests/test_sorting.cpp.o"
+},
+{
+  "directory": "/home/kamilg/vsc_cpp/sorting/build",
+  "command": "/usr/bin/clang++-18 -g -std=gnu++23 -o CMakeFiles/sorting_algorithms.dir/main.cpp.o -c /home/kamilg/vsc_cpp/sorting/main.cpp",
+  "file": "/home/kamilg/vsc_cpp/sorting/main.cpp",
+  "output": "CMakeFiles/sorting_algorithms.dir/main.cpp.o"
 }
 ]

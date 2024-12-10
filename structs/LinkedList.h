@@ -1,6 +1,7 @@
 #pragma once
 #include "smart_ptrs.h"
 #include "stdexcept"
+
 template<typename T>
 class LinkedList {
 private:
@@ -80,7 +81,7 @@ public:
 
     LinkedList<T>* GetSubList(int startIndex, int endIndex) const {
         if (startIndex < 0 || endIndex < 0 || startIndex >= size_ || endIndex >= size_ || startIndex > endIndex) {
-            throw std::out_of_range("Incorrect indexes.");
+            return new LinkedList<T>();
         }
         LinkedList<T>* sublist = new LinkedList<T>();
         ShrdPtr<Node> current = head;

@@ -1,19 +1,32 @@
 #include "test_sorting.h"
+#include "sstream"
+#include <map>
+#include <string>
+#include <fstream>
+
+std::map<std::string, std::vector<double>> performance_data;
 
 template<typename T>
-void run_sort_test(ISort<T>& sorter, Sequence<T>* sequence, int (*cmp)(T, T), const std::string& test_name) {
+std::string run_sort_test(ISort<T>& sorter, Sequence<T>* sequence, int (*cmp)(T, T), const std::string& test_name, int data_size) {
     auto start = std::chrono::high_resolution_clock::now();
     sorter.sort(sequence, cmp);
     auto end = std::chrono::high_resolution_clock::now();
 
+    std::ostringstream result;
     std::chrono::duration<double> elapsed = end - start;
-    std::cout << test_name << ": ";
+
+
+    performance_data[test_name].push_back(elapsed.count());
+
+    result << test_name << " (Size " << data_size << "): ";
     if (is_sorted(sequence, cmp)) {
-        std::cout << "Passed";
+        result << "Passed";
     } else {
-        std::cout << "Failed";
+        result << "Failed";
     }
-    std::cout << " (Time: " << elapsed.count() << " seconds)\n";
+    result << " (Time: " << elapsed.count() << " seconds)\n";
+
+    return result.str();
 }
 
 int compare(int a, int b) {
@@ -30,7 +43,6 @@ bool is_sorted(Sequence<T>* sequence, int (*cmp)(T, T)) {
     return true;
 }
 
-// Функции для генерации данных внутри контейнеров
 ArraySequence<int>* generate_random_array_sequence(int size) {
     ArraySequence<int>* sequence = new ArraySequence<int>();
     std::random_device rd;
@@ -87,63 +99,79 @@ ListSequence<int>* generate_reverse_sorted_list_sequence(int size) {
     return sequence;
 }
 
-void test_sorting_algorithms_on_array_and_list_sequences() {
-    const int test_size = 10000; // Large test size
+std::string test_sorting_algorithms_on_array_and_list_sequences(
+    const std::vector<int>& test_sizes, 
+    bool arr_seq, 
+    bool list_seq
+) {
     int (*cmp)(int, int) = compare;
+    std::ostringstream result;
 
-    // Create sorters
     BubbleSort<int> bubble_sort;
     ShakerSort<int> shaker_sort;
     MergeSort<int> merge_sort;
     QuickSort<int> quick_sort;
 
-    // Test with ArraySequence
-    std::cout << "Testing with ArraySequence:\n";
-    {
-        ArraySequence<int>* random_seq = generate_random_array_sequence(test_size);
-        run_sort_test(bubble_sort, random_seq, cmp, "BubbleSort (Random)");
-        run_sort_test(shaker_sort, random_seq, cmp, "ShakerSort (Random)");
-        run_sort_test(merge_sort, random_seq, cmp, "MergeSort (Random)");
-        run_sort_test(quick_sort, random_seq, cmp, "QuickSort (Random)");
-        delete random_seq;
+    for (int size : test_sizes) {
+        result << "Testing size = " << size << "\n\n";
 
-        ArraySequence<int>* sorted_seq = generate_sorted_array_sequence(test_size);
-        run_sort_test(bubble_sort, sorted_seq, cmp, "BubbleSort (Sorted)");
-        run_sort_test(shaker_sort, sorted_seq, cmp, "ShakerSort (Sorted)");
-        run_sort_test(merge_sort, sorted_seq, cmp, "MergeSort (Sorted)");
-        run_sort_test(quick_sort, sorted_seq, cmp, "QuickSort (Sorted)");
-        delete sorted_seq;
+        if (arr_seq) {
+            result << "Testing with ArraySequence:\n";
+            ArraySequence<int>* random_seq = generate_random_array_sequence(size);
 
-        ArraySequence<int>* reverse_sorted_seq = generate_reverse_sorted_array_sequence(test_size);
-        run_sort_test(bubble_sort, reverse_sorted_seq, cmp, "BubbleSort (Reverse Sorted)");
-        run_sort_test(shaker_sort, reverse_sorted_seq, cmp, "ShakerSort (Reverse Sorted)");
-        run_sort_test(merge_sort, reverse_sorted_seq, cmp, "MergeSort (Reverse Sorted)");
-        run_sort_test(quick_sort, reverse_sorted_seq, cmp, "QuickSort (Reverse Sorted)");
-        delete reverse_sorted_seq;
+            result << run_sort_test(bubble_sort, random_seq, cmp, "BubbleSort (Random)", size);
+            result << run_sort_test(shaker_sort, random_seq, cmp, "ShakerSort (Random)", size);
+            result << run_sort_test(merge_sort, random_seq, cmp, "MergeSort (Random)", size);
+            result << run_sort_test(quick_sort, random_seq, cmp, "QuickSort (Random)", size);
+
+            delete random_seq;
+        }
+
+        if (list_seq) {
+            result << "Testing with ListSequence:\n";
+            ListSequence<int>* random_seq = generate_random_list_sequence(size);
+
+            result << run_sort_test(bubble_sort, random_seq, cmp, "BubbleSort (Random)", size);
+            result << run_sort_test(shaker_sort, random_seq, cmp, "ShakerSort (Random)", size);
+            result << run_sort_test(merge_sort, random_seq, cmp, "MergeSort (Random)", size);
+            result << run_sort_test(quick_sort, random_seq, cmp, "QuickSort (Random)", size);
+
+            delete random_seq;
+        }
     }
 
-    // Test with ListSequence
-    std::cout << "Testing with ListSequence:\n";
-    {
-        ListSequence<int>* random_seq = generate_random_list_sequence(test_size);
-        run_sort_test(bubble_sort, random_seq, cmp, "BubbleSort (Random)");
-        run_sort_test(shaker_sort, random_seq, cmp, "ShakerSort (Random)");
-        run_sort_test(merge_sort, random_seq, cmp, "MergeSort (Random)");
-        run_sort_test(quick_sort, random_seq, cmp, "QuickSort (Random)");
-        delete random_seq;
-
-        ListSequence<int>* sorted_seq = generate_sorted_list_sequence(test_size);
-        run_sort_test(bubble_sort, sorted_seq, cmp, "BubbleSort (Sorted)");
-        run_sort_test(shaker_sort, sorted_seq, cmp, "ShakerSort (Sorted)");
-        run_sort_test(merge_sort, sorted_seq, cmp, "MergeSort (Sorted)");
-        run_sort_test(quick_sort, sorted_seq, cmp, "QuickSort (Sorted)");
-        delete sorted_seq;
-
-        ListSequence<int>* reverse_sorted_seq = generate_reverse_sorted_list_sequence(test_size);
-        run_sort_test(bubble_sort, reverse_sorted_seq, cmp, "BubbleSort (Reverse Sorted)");
-        run_sort_test(shaker_sort, reverse_sorted_seq, cmp, "ShakerSort (Reverse Sorted)");
-        run_sort_test(merge_sort, reverse_sorted_seq, cmp, "MergeSort (Reverse Sorted)");
-        run_sort_test(quick_sort, reverse_sorted_seq, cmp, "QuickSort (Reverse Sorted)");
-        delete reverse_sorted_seq;
+    try {
+        save_performance_data_to_csv("performance_data.csv");
+        result << "Performance data saved to performance_data.csv\n";
+    } catch (const std::exception& ex) {
+        result << "Error saving performance data: " << ex.what() << "\n";
     }
+
+    return result.str();
+}
+
+void save_performance_data_to_csv(const std::string& filename) {
+    std::ofstream file(filename);
+
+    if (!file.is_open()) {
+        throw std::runtime_error("Failed to open file: " + filename);
+    }
+
+    // Записываем заголовок
+    file << "Test Name";
+
+    for (int i = 0; i < performance_data.size(); ++i){
+        file << ",Run " << i + 1;
+    }
+    file << '\n';
+    // Записываем данные
+    for (const auto& [test_name, timings] : performance_data) {
+        file << test_name;
+        for (double timing : timings) {
+            file << "," << timing;
+        }
+        file << "\n";
+    }
+
+    file.close();
 }
