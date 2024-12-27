@@ -4,7 +4,7 @@
 #include <string>
 #include <fstream>
 
-std::map<std::string, std::vector<double>> performance_data;
+std::map<std::string, std::vector<std::pair<int, double>>> performance_data;
 
 template<typename T>
 std::string run_sort_test(ISort<T>& sorter, Sequence<T>* sequence, int (*cmp)(T, T), const std::string& test_name, int data_size) {
@@ -15,8 +15,7 @@ std::string run_sort_test(ISort<T>& sorter, Sequence<T>* sequence, int (*cmp)(T,
     std::ostringstream result;
     std::chrono::duration<double> elapsed = end - start;
 
-
-    performance_data[test_name].push_back(elapsed.count());
+    performance_data[test_name].push_back({data_size, elapsed.count()});
 
     result << test_name << " (Size " << data_size << "): ";
     if (is_sorted(sequence, cmp)) {
@@ -100,8 +99,8 @@ ListSequence<int>* generate_reverse_sorted_list_sequence(int size) {
 }
 
 std::string test_sorting_algorithms_on_array_and_list_sequences(
-    const std::vector<int>& test_sizes, 
-    bool arr_seq, 
+    const std::vector<int>& test_sizes,
+    bool arr_seq,
     bool list_seq
 ) {
     int (*cmp)(int, int) = compare;
@@ -141,7 +140,7 @@ std::string test_sorting_algorithms_on_array_and_list_sequences(
     }
 
     try {
-        save_performance_data_to_csv("performance_data.csv");
+        save_performance_data_to_csv_and_xl("../tests/performance_data.csv");
         result << "Performance data saved to performance_data.csv\n";
     } catch (const std::exception& ex) {
         result << "Error saving performance data: " << ex.what() << "\n";
@@ -150,28 +149,37 @@ std::string test_sorting_algorithms_on_array_and_list_sequences(
     return result.str();
 }
 
-void save_performance_data_to_csv(const std::string& filename) {
+void save_performance_data_to_csv_and_xl(const std::string& filename) {
     std::ofstream file(filename);
 
     if (!file.is_open()) {
         throw std::runtime_error("Failed to open file: " + filename);
     }
 
-    // Записываем заголовок
-    file << "Test Name";
+    if (!performance_data.empty()) {
+        file << "Test Size";
 
-    for (int i = 0; i < performance_data.size(); ++i){
-        file << ",Run " << i + 1;
-    }
-    file << '\n';
-    // Записываем данные
-    for (const auto& [test_name, timings] : performance_data) {
-        file << test_name;
-        for (double timing : timings) {
-            file << "," << timing;
+        auto test_sizes = performance_data.begin()->second;
+        for(auto test : test_sizes) {
+            file << ',' << test.first;
         }
-        file << "\n";
-    }
+        file << '\n';
 
-    file.close();
+        // Записываем данные
+        for (const auto& [test_name, timings] : performance_data) {
+            file << test_name;
+            for (auto timing : timings) {
+                file << "," << timing.second;
+            }
+            file << "\n";
+        }
+        file.close();
+    }
+    int result = std::system("python ../tests/csv_to_xl.py");
+    result += std::system("python ../tests/display.py");
+    if (result == 0) {
+        std::cout << "CSV успешно конвертирован в Excel." << std::endl;
+    } else {
+        std::cerr << "Ошибка при выполнении скрипта." << std::endl;
+    }
 }

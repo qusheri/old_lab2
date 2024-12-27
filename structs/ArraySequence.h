@@ -83,7 +83,6 @@ public:
 
     Sequence<T>* InsertAt(T item, int index) override {
         if (index < 0 || index > size_) {
-            std::cerr << std::endl << "1: " << 5252 << std::endl;
             throw std::out_of_range("Index out of range or array is empty");
         }
         Resize(size_ + 1);

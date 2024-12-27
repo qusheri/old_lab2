@@ -79,7 +79,6 @@ public:
 
     const T &operator[](const size_t i) const {
         if(size_ <= i){
-            std::cerr << std::endl << "2: " << 5252 << std::endl;
             throw std::out_of_range("Index out of range or array is empty");
         }
         return val[i];
@@ -87,7 +86,6 @@ public:
 
     T &operator[](const size_t i) {
         if(size_ <= i){
-            std::cerr << std::endl << "3: " << 5252 << std::endl;
             throw std::out_of_range("Index out of range or array is empty");
         }
         return val[i];

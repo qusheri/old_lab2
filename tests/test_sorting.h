@@ -31,4 +31,4 @@ ListSequence<int>* generate_reverse_sorted_list_sequence(int size);
 
 std::string test_sorting_algorithms_on_array_and_list_sequences(const std::vector<int>& test_sizes, bool arr_seq, bool list_seq);
 
-void save_performance_data_to_csv(const std::string& filename);
+void save_performance_data_to_csv_and_xl(const std::string& filename);

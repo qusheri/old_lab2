@@ -1,5 +1,5 @@
 #include "structures_tests.h"
-#include "iostream"
+
 std::string runLinkedListTests() {
     std::ostringstream result;
     result << "LinkedList Tests:\n";

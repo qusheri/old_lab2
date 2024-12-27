@@ -125,8 +125,7 @@ private:
         }
         Sequence<T> *left = container->GetSubsequence(0, size_left - 1);
         Sequence<T> *right = container->GetSubsequence(0, size_right - 1);
-        
-        std::cerr << std::endl << container->GetLength() << " " << left->GetLength() << " " << right->GetLength();
+
         size_right = 0, size_left = 0;
         for (int i = 0; i < container->GetLength(); ++i) {
             if (i != container->GetLength() / 2) {
@@ -140,7 +139,6 @@ private:
         if (left->GetLength() > 1) quick_sort(left, cmp);
         if (right->GetLength() > 1) quick_sort(right, cmp);
         left->Append(pivot);
-        std::cerr << std::endl << container->GetLength() << " " << left->GetLength() << " " << right->GetLength();
         for(int i = 0; i < left->GetLength(); ++i){
             (*container)[i] = (*left)[i];
         }
