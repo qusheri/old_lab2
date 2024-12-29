@@ -1,30 +1,43 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Чтение CSV-файла
+def plot_performance(csv_file, output_file="performance_plot.png"):
+    try:
+        data = pd.read_csv(csv_file)
+
+        test_sizes = list(map(int, data.columns[1:]))
+        plt.figure(figsize=(10, 6))
+
+        x_min, x_max = min(test_sizes), max(test_sizes)
+        y_min, y_max = float('inf'), float('-inf')
+
+        for _, row in data.iterrows():
+            test_name = row[0]
+            timings = row[1:].values
+
+            y_min = min(y_min, *timings[~pd.isna(timings)])
+            y_max = max(y_max, *timings[~pd.isna(timings)])
+
+            valid_sizes = [size for size, timing in zip(test_sizes, timings) if not pd.isna(timing)]
+            valid_timings = [timing for timing in timings if not pd.isna(timing)]
+
+            plt.plot(valid_sizes, valid_timings, marker='o', label=test_name)
+
+        plt.xlim(x_min, x_max)
+        plt.ylim(y_min * 0.9, y_max * 1.1)
+
+        plt.title("Performance of Sorting Algorithms", fontsize=14)
+        plt.xlabel("Test Size", fontsize=12)
+        plt.ylabel("Test Time (seconds)", fontsize=12)
+        plt.legend(title="Test Name", fontsize=10)
+        plt.grid(True, linestyle='--', alpha=0.6)
+
+        plt.savefig(output_file)
+        plt.show()
+
+        print(f"Graph saved to {output_file}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
 csv_file = '../tests/performance_data.csv'
-df = pd.read_csv(csv_file)
-
-# Проверка структуры данных
-if df.empty:
-    print("Файл пустой. Графики построить невозможно.")
-else:
-    # Убираем пробелы из заголовков (если есть)
-    df.columns = [col.strip() for col in df.columns]
-
-    # Построение графиков для каждой сортировки
-    for index, row in df.iterrows():
-        test_name = row['Test Name']
-        run_times = row[1:].values  # Значения времени выполнения
-
-        # Построение линейного графика
-        plt.plot(range(1, len(run_times) + 1), run_times, marker='o', label=test_name)
-
-    # Настройки графика
-    plt.title("Сравнение производительности сортировок")
-    plt.xlabel("Запуск (Run)")
-    plt.ylabel("Время выполнения (секунды)")
-    plt.yscale('log')  # Логарифмическая шкала для удобства
-    plt.legend()
-    plt.grid(True)
-    plt.show()
+plot_performance(csv_file)

@@ -4,7 +4,6 @@ std::string runLinkedListTests() {
     std::ostringstream result;
     result << "LinkedList Tests:\n";
 
-    // Тест: добавление элементов в начало списка
     result << "  Functional Test 1 (push front): ";
     {
         try {
@@ -17,7 +16,6 @@ std::string runLinkedListTests() {
         }
     }
 
-    // Тест: получение первого элемента
     result << "  Functional Test 2 (get first element): ";
     {
         try {
@@ -29,7 +27,6 @@ std::string runLinkedListTests() {
         }
     }
 
-    // Тест: удаление элемента из пустого списка
     result << "  Exception Test 1 (pop from empty list): ";
     {
         try {
@@ -43,7 +40,6 @@ std::string runLinkedListTests() {
         }
     }
 
-    // Тест: получение элемента по индексу
     result << "  Functional Test 3 (get by index): ";
     {
         try {
@@ -56,7 +52,6 @@ std::string runLinkedListTests() {
         }
     }
 
-    // Тест: конкатенация двух списков
     result << "  Functional Test 4 (concat lists): ";
     {
         try {
@@ -80,7 +75,6 @@ std::string runDynamicArrayTests() {
     std::ostringstream result;
     result << "DynamicArray Tests:\n";
 
-    // Тест: добавление элемента в конец
     result << "  Functional Test 1 (append): ";
     {
         try {
@@ -94,7 +88,6 @@ std::string runDynamicArrayTests() {
         }
     }
 
-    // Тест: получение элемента по индексу
     result << "  Functional Test 2 (get by index): ";
     {
         try {
@@ -106,7 +99,6 @@ std::string runDynamicArrayTests() {
         }
     }
 
-    // Тест: исключение на выход за границы
     result << "  Exception Test 1 (out of range): ";
     {
         try {
@@ -128,7 +120,6 @@ std::string runListSequenceTests() {
     std::ostringstream result;
     result << "ListSequence Tests:\n";
 
-    // Тест: добавление элемента в конец
     result << "  Functional Test 1 (append): ";
     {
         try {
@@ -140,7 +131,6 @@ std::string runListSequenceTests() {
         }
     }
 
-    // Тест: получение подпоследовательности
     result << "  Functional Test 2 (subsequence): ";
     {
         try {
@@ -161,7 +151,6 @@ std::string runArraySequenceTests() {
     std::ostringstream result;
     result << "ArraySequence Tests:\n";
 
-    // Тест: добавление элемента в конец
     result << "  Functional Test 1 (append): ";
     {
         try {
@@ -173,7 +162,6 @@ std::string runArraySequenceTests() {
         }
     }
 
-    // Тест: получение подпоследовательности
     result << "  Functional Test 2 (subsequence): ";
     {
         try {

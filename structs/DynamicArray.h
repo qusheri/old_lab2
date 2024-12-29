@@ -58,11 +58,11 @@ public:
 
     void Resize(size_t newSize) {
         if (newSize == size_) return;
-        size_ = newSize;
-        T *tmp = new T[newSize];
+        ShrdPtr<T[]> tmp(new T[newSize]);
         for(size_t i = 0; i != size_; ++i){
             tmp[i] = val[i];
         }
+        size_ = newSize;
         val = ShrdPtr<T[]>(tmp);
     }
 

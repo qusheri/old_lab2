@@ -1,5 +1,7 @@
 #pragma once
+
 #include "ISort.h"
+
 template<typename T>
 class BubbleSort : public ISort<T>{
 public:
